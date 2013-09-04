@@ -1,0 +1,25 @@
+Rohdaten:
+sub | 25*AU | Task | Trial | condition (%d) |condition (%s)
+
+
+Task 1:7, relevant sind 2,3, 5,6
+
+
+Codierung TASK:
+1 = AN = ANGER
+2 = DI = DISGUST
+3 = FE = FEAR
+4 = HA = HAPPY
+5 = NE = NEUTRAL
+6 = SA = SAD
+7 = SU = SURPRISE
+
+Codierung Daten:
+
+NA in Task/Trial/Condition/ nicht relevant (frame droppen)
+NaN in Daten == NaN
+
+subj spalte: 
+X.avi:Y 
+*.avi == Proband
+1 == Frame 
