@@ -1,5 +1,5 @@
 Rohdaten:
-sub | 25*AU | Task | Trial | condition (%d) |condition (%s)
+sub | 21*AU | Task | Trial | condition (%d) |condition (%s)
 
 
 Task 1:7, relevant sind 2,3, 5,6
@@ -35,10 +35,11 @@ label = {	'AU2R','AU2L','AU1R','AU1L',....
 			'AU23','AU24','AU25','AU28',...
 
 % CERT label
-"A1InnerBrowRaise", "A2OuterBrowRaise", "A4BrowLower", "A5EyeWiden", "A9NoseWrinkle", "A10LipRaise",
-"A12LipCornerPull", "A14Dimpler", "A15LipCornerDepressor", "A17ChinRaise", "A20Lipstretch",
-"A6CheekRaise", "A7LidsTight", "A18LipPucker", "A23LipTightener", "A24LipPresser", "A25LipsPart",
-"A26JawDrop", "A28LipsSuck", "A10Left", "A12Left", "A14Left", "A10Right", "A12Right", "A14Right")]
-
+	"A1","A2","A4","A5","A6","A7","A9", # SPLIT THESE
+	"A10R",	"A10L","A12R", "A12L","A14R", "A14L",
+    "A15",  		# THIS ONE TOO
+	"A17",  
+	"A20",    		# THIS ONE TOO
+	"A23",	"A24",  "A25",  "A26",  "A28"  
 % Label die in CERT einfach sind, im Gesicht aber 2 brauchen
-TO split later: A1, A2, A4, A5, A6
+TO split later: A1, A2, A4, A5, A6,A7,A9,A15,A20

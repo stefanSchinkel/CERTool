@@ -57,7 +57,7 @@ if totalLines > 0
 	% wc also read the headerline
 	% which we have to neglect
 	totalLines = totalLines-1;
-	data =  zeros(25,totalLines);
+	data =  zeros(21,totalLines);
 	meta.task 	= int32(zeros(1,totalLines));
 	meta.trial 	= int32(zeros(1,totalLines));
 	meta.emotion = int32(zeros(1,totalLines));
@@ -86,17 +86,17 @@ while 1
 	x = textscan(line,formatString);
 	
 	% assign values
-	data(:,nLines) 	= cell2mat(x(2:26));
+	data(:,nLines) 	= cell2mat(x(2:22));
 
 	% filter out NA in Task/Trial/Emo
-	if isempty(cell2mat(x(27)))
+	if isempty(cell2mat(x(23)))
 		meta.task(nLines) 	= NaN;
 		meta.trial(nLines) 	= NaN;
 		meta.emotion(nLines) = NaN;		
 	else
-		meta.task(nLines) 	= cell2mat(x(27));
-		meta.trial(nLines) 	= cell2mat(x(28));	
-		meta.emotion(nLines) = cell2mat(x(29));
+		meta.task(nLines) 	= cell2mat(x(23));
+		meta.trial(nLines) 	= cell2mat(x(24));	
+		meta.emotion(nLines) = cell2mat(x(25));
 	end
 	
 	% increment counter
@@ -127,7 +127,7 @@ function format = prepareFormatString()
 %There are 25 cols for sub & AU and then Task Trial  conditionNumeric, conditionChar
 % which is : %s 25*%f 3*%d and %s
 format = '%s';
-for i=1:25 
+for i=1:21 
 	format = [format ' %f '];
 end
 format = [format ' %d %d %d %s'];

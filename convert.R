@@ -42,11 +42,17 @@ convertCERT <- function(source, target){
         # consider re-ordering to better match AU oder in ML
         # once this is fully establiched
         dat <- dat[, c("subj",
-                "A1",   "A2",   "A4",   "A5",   "A9",   
-                "A10",  "A12",  "A14",  "A15",  "A17",  
-                "A20",  "A6",   "A7",   "A18",  "A23",  
-                "A24",  "A25",  "A26",  "A28",  "A10L", 
-                "A12L", "A14L", "A10R", "A12R", "A14R"
+                "A1",   "A2",   # ###########################
+				"A4",   "A5",   # THOSE AU  HAVE TO 		#
+				"A6",   "A7",	# BE SPLIT IN MATLAB		#
+				"A9",   		#############################
+				"A10R",	"A10L",  
+				"A12R", "A12L", 
+				"A14R", "A14L",
+                "A15",  		# THIS ONE TOO
+				"A17",  
+				"A20",    		# THIS ONE TOO
+				"A23",	"A24",  "A25",  "A26",  "A28"  
  )]
 
 
