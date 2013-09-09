@@ -37,10 +37,11 @@
 
 function [data meta] =importData(fileName)
 
-flagDebug = true;
+flagDebug = false;
 
 if nargin < 1
 	fileName = 'data/dat_all_21001.txt';
+	fprintf('WARNING: Reading sample data\n');
 end
 
 
@@ -113,7 +114,7 @@ fprintf('Read %d lines in %2.1f sec\n', nLines,toc(tStart))
 fclose(fid);
 
 
-if flagDebug
+if flagDebug 
 	subplot(3,1,1);bar(meta.task);title('Task');axis tight
 	subplot(3,1,2);bar(meta.trial);title('trial');axis tight
 	subplot(3,1,3);bar(meta.emotion);title('Emo');axis tight
