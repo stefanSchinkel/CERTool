@@ -71,8 +71,9 @@ tStart = tic;
 fprintf('Reading data ')
 % make format string
 formatString = prepareFormatString(); 
+
 % and a line counter
-nLines = 1;
+iLine = 1;
 
 % loop over data
 while 1 
@@ -85,32 +86,35 @@ while 1
 
 	% scan line
 	x = textscan(line,formatString);
-	
-	% assign values
-	data(:,nLines) 	= cell2mat(x(2:22));
-
+	try
+		% assign values
+		data(:,iLine) 	= cell2mat(x(2:22));
+	catch 
+		data(:,iLine) 	= NaN;
+		return
+	end
 	% filter out NA in Task/Trial/Emo
 	if isempty(cell2mat(x(23)))
-		meta.task(nLines) 	= NaN;
-		meta.trial(nLines) 	= NaN;
-		meta.emotion(nLines) = NaN;		
+		meta.task(iLine) 	= NaN;
+		meta.trial(iLine) 	= NaN;
+		meta.emotion(iLine) = NaN;		
 	else
-		meta.task(nLines) 	= cell2mat(x(23));
-		meta.trial(nLines) 	= cell2mat(x(24));	
-		meta.emotion(nLines) = cell2mat(x(25));
+		meta.task(iLine) 	= cell2mat(x(23));
+		meta.trial(iLine) 	= cell2mat(x(24));	
+		meta.emotion(iLine) = cell2mat(x(25));
 	end
 	
 	% increment counter
-	nLines = nLines + 1;
+	iLine = iLine + 1;
 
     % some progress
-    if mod(nLines,500) == 0 
+    if mod(iLine,500) == 0 
     	fprintf('=')
     end
 end
 fprintf('> Done \n')
 
-fprintf('Read %d lines in %2.1f sec\n', nLines,toc(tStart))
+fprintf('Read %d lines in %2.1f sec\n', iLine,toc(tStart))
 fclose(fid);
 
 
