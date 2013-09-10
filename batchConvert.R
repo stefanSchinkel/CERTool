@@ -9,7 +9,7 @@ sourceDirectory <- '~/net/O/stefanSchinkel/___AU_Net/RawData/'
 targetDirectory <- '~/work/daten2/11.faces/converted'
 setwd(sourceDirectory)
 
-srcFiles <- list.files(pattern="*210*.")
+srcFiles <- list.files(pattern="AU Data 210*.")
 for (s in srcFiles){ 
 
   if (grepl(pattern = '21030',s)) {
@@ -26,9 +26,9 @@ for (s in srcFiles){
 
 }
 # be nice and say goodbye
-cat( sprintf('All males took %.1f secs.\n',Sys.time()-tStart) )
+cat('Males');Sys.time()-tStart
 
-srcFiles <- list.files(pattern="*220*.")
+srcFiles <- list.files(pattern="AU Data 220*.")
 for (s in srcFiles){ 
   
   if (grepl(pattern = '22014',s)) {
@@ -44,5 +44,5 @@ for (s in srcFiles){
   convertCERT(s,targetFile)
 }
 # be nice and say goodbye
-cat( sprintf('All females took %.1f secs.Goodbye.\n',Sys.time()-tStart) )
+cat('Females');Sys.time()-tStart
 
