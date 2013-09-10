@@ -167,7 +167,7 @@ convertCERT <- function(source, target){
         write.table(dat, target, quote = F, row.names = F, append = F)
 
         # be nice and say goodbye
-        cat( sprintf('Converstion took %.1f secs. Have a nice day\n',Sys.time()-tStart) )
+  #      cat( sprintf('Converstion took %.1f secs. Have a nice day\n',Sys.time()-tStart) )
 }
 
 ##########################################
