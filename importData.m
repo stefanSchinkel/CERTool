@@ -82,7 +82,9 @@ while 1
 	line = fgetl(fid);
 
 	% break on empty
-	if ~ischar(line), break, end	 
+	if ~ischar(line)
+		break
+	end	 
 
 	% scan line
 	x = textscan(line,formatString);
@@ -91,8 +93,8 @@ while 1
 		data(:,iLine) 	= cell2mat(x(2:22));
 	catch 
 		data(:,iLine) 	= NaN;
-		return
 	end
+
 	% filter out NA in Task/Trial/Emo
 	if isempty(cell2mat(x(23)))
 		meta.task(iLine) 	= NaN;
