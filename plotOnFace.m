@@ -1,4 +1,4 @@
-function plotOnFace(nw,flagLabel)
+function plotOnFace(nw,flagNodes,flagLabel)
 
 % PLOTONFACE - plot network on face 
 %
@@ -6,8 +6,13 @@ function plotOnFace(nw,flagLabel)
 
 
 if nargin < 2
+	flagNodes = false;
+	flagLabel = false;
+elseif nargin < 3
 	flagLabel = false;
 end
+
+
 % load template data
 template = load('private/face.mat');
 
@@ -31,7 +36,7 @@ nw(24,25) = 0; nw(25,24) = 0;
 [gx gy] = gplot(nw,[template.x template.y]);
 	
 % clear fig
-clf
+cla
 	
 % render face and hold for overlaying
 imshow(template.face);
@@ -39,11 +44,14 @@ hold on;
 
 %plot links and nodes
 hLinks = plot(gx,gy,'-k','LineWidth',.5);
-hNodes = plot(	template.x,template.y,'ok',...
-					'MarkerFaceColor','k','MarkerSize',5);
+if flagNodes
+	hNodes = plot(	template.x,template.y,'ok',...
+					'MarkerFaceColor','k','MarkerSize',3);
+end
+
 % add labels if wanted
 if flagLabel
-	text(template.x,template.y,template.label)
+	text(template.x,template.y,template.label,'FontSize',6)
 end
 
 %text(300,125,emoCodes{iEmo},'FontSize',20,'FontWeight','bold')
