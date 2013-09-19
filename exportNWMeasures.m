@@ -29,7 +29,7 @@ tasks = tasks(cellfun(@(x) ~isempty(x), NW));
 
 % open file for writing
 fid = fopen('results/export.cvs','w');
-fprintf(fid,'subject;task;emotion;density;average degree; average degree centrality; average path length\n');
+fprintf(fid,'subject;task;emotion;density;average degree; distance centrality; average path length\n');
 % loop over task and emo and make 
 % a nice plot for each task
 
