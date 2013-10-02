@@ -7,14 +7,14 @@ function data = splitAUs(data)
 % This function duplicates the data for those AUs
 % that are present twice, but for which only one 
 % values is recorded. The input data is taken from
-% importData().
+% importCERT().
 %
 % Input:
 %	data - 21xN array with activations
 % Output:
 %	data - 25xN array with activations
 %
-% See also: importData.m
+% See also: importCERT.m
 %
 %
 

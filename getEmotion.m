@@ -7,17 +7,17 @@ function x = getEmotion(data,meta,emotion,framesPerTrial)
 % This function extracts the AU activation for given emotion an returns  
 % an NxMxP matrix where N is the number of AUs M is the number for frames 
 % per trial and P is the number of trials found. The DATA and META inputs
-% are taken from IMPORTDATA.
+% are taken from importCERT.
 %
 % Input:
-%	data - from importData
+%	data - from importCERT
 %	meta - same as input for selected task
 %
 % Output:
 %	data - same as input for selected task
 %	meta - same as input for selected task
 %
-% See also: importData.m
+% See also: importCERT.m
 %
 %
 

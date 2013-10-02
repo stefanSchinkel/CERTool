@@ -24,7 +24,7 @@ nEmos = numel(emoCodes);
 % tic
 % dataFiles = findFiles('converted/','male*');
 % for iFile = 1:numel(dataFiles)
-% 	[data{iFile} meta{iFile}] = importData(dataFiles{iFile});
+% 	[data{iFile} meta{iFile}] = importCERT(dataFiles{iFile});
 % end
 % save males.mat data meta dataFiles
 % toc
@@ -32,7 +32,7 @@ nEmos = numel(emoCodes);
 % tic
 % dataFiles = findFiles('converted/','female*');
 % for iFile = 1:numel(dataFiles)
-% 	[data{iFile} meta{iFile}] = importData(dataFiles{iFile});
+% 	[data{iFile} meta{iFile}] = importCERT(dataFiles{iFile});
 % end
 % save females.mat data meta dataFiles
 % toc

@@ -5,7 +5,7 @@ function [data meta] = getTask(data,meta,task)
 % [data meta] = getTask(data,meta,task)
 %
 % This function extract a give task from DATA and 
-% META supplied, both of which are form IMPORTDATA. 
+% META supplied, both of which are form importCERT. 
 % The TASK should be a integer.
 %
 % Input:
@@ -16,7 +16,7 @@ function [data meta] = getTask(data,meta,task)
 %	data - same as input for selected task
 %	meta - same as input for selected task
 %
-% See also: importData.m
+% See also: importCERT.m
 %
 %
 

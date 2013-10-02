@@ -1,6 +1,6 @@
-%IMPORTDATA - read CERT data (prepared using convert.R)
+%IMPORTCERT - read CERT data (prepared using convert.R)
 %
-% function [data meta] = importData(file)
+% function [data meta] = importCERT(file)
 %
 % Read the activation of facial action units (AU) as derived
 % from the CERT coding software. In those files There
@@ -35,7 +35,7 @@
 % You should have received a copy of the GNU General Public License
 % along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-function [data meta] =importData(fileName)
+function [data meta] =importCERT(fileName)
 
 flagDebug = false;
 
@@ -48,7 +48,7 @@ end
 % open file
 fid = fopen(fileName);
 if fid == -1
-	error('FACE:importData','Couldn''t read data file')
+	error('FACE:importCERT','Couldn''t read data file')
 end
 
 % try to get the number of lines 

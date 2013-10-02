@@ -5,12 +5,12 @@ function [out nTrials] = getAllEmotions(data,meta,framesPerTrial)
 % [out nTrials] = getAllEmotions(data,meta,[framesPerTrial])
 %
 % This function extracts the AU activation data for all 7 emotions form the
-% DATA supplied. META holds onsets etc. and  both which are form IMPORTDATA
+% DATA supplied. META holds onsets etc. and  both which are form importCERT
 % or GETTASK.
 %
 % Input:
-%	data - AU activation (see importData.m)
-%	meta - meta infos (see importData.m)
+%	data - AU activation (see importCERT.m)
+%	meta - meta infos (see importCERT.m)
 %
 % Output:
 %	out - a cell array containing one NMP matrix for each emotion
@@ -19,7 +19,7 @@ function [out nTrials] = getAllEmotions(data,meta,framesPerTrial)
 %
 % For the structure of the NMP matrix see getEmotion
 %
-% See also: importData.m, getEmotion.m, getTask.m
+% See also: importCERT.m, getEmotion.m, getTask.m
 %
 %
 flagDebug = false;
