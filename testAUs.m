@@ -1,4 +1,4 @@
-function testAUs(testCase)
+function [x y label ] = testAUs(testCase)
 %
 %	TESTAUS - show where the AUs will be plotted
 %
@@ -78,6 +78,11 @@ end
 % Make a VIDEO if requested
 
 if testCase > 0
+
+	if confirmVideo() == 0
+		error('Rendering of video cancelled')
+	end
+	
 	aviobj = avifile('faceNetwork.avi','fps',5,'quality',100); 
 	for i=1:25
 
@@ -101,4 +106,17 @@ if testCase > 0
 		%pause(.5)
 	end
 	aviobj = close(aviobj);
+end
+
+function renderVideo =  confirmVideo()
+% Construct a questdlg with three options
+choice = questdlg('Are you sure you want to render a sample video?', ...
+	'Render Sample Video ?', ...
+	'Yes','No','No');
+% Handle response
+switch choice
+    case 'Yes'
+          renderVideo = 1;
+    case 'No'
+        renderVideo = 0;
 end
