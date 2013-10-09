@@ -1,19 +1,19 @@
 function [out nTrials] = getAllEmotions(data,meta,framesPerTrial)
 
-%  GETALLEMOTIONS- extract data of ALL emotions
+%  GETALLEMOTIONS - extract data of ALL emotions
 %
 % [out nTrials] = getAllEmotions(data,meta,[framesPerTrial])
 %
 % This function extracts the AU activation data for all 7 emotions form the
-% DATA supplied. META holds onsets etc. and  both which are form importCERT
-% or GETTASK.
+% DATA supplied. META holds trial/task/emotion. Both which are supposed to 
+% come from importCERT() or getTask().
 %
 % Input:
 %	data - AU activation (see importCERT.m)
 %	meta - meta infos (see importCERT.m)
 %
 % Output:
-%	out - a cell array containing one NMP matrix for each emotion
+%	out	- a cell array containing 7 NMP matrices, one for each emotion
 %	nTrials  - the number of trials per emotion
 %
 %
@@ -22,6 +22,22 @@ function [out nTrials] = getAllEmotions(data,meta,framesPerTrial)
 % See also: importCERT.m, getEmotion.m, getTask.m
 %
 %
+
+% Copyright (C) 2013- Stefan Schinkel, HU Berlin
+% http://people.physik.hu-berlin.de/~schinkel/
+%
+% This program is free software; you can redistribute it and/or modify
+% it under the terms of the GNU General Public License as published by
+% the Free Software Foundation; either version 3 of the License, or
+% (at your option) any later version.
+%
+% This program is distributed in the hope that it will be useful,
+% but WITHOUT ANY WARRANTY; without even the implied warranty of
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+% GNU General Public License for more details.
+%
+% You should have received a copy of the GNU General Public License
+% along with this program.  If not, see <http://www.gnu.org/licenses/>.
 flagDebug = false;
 if nargin < 2
 	help(mfilename)
@@ -41,6 +57,7 @@ emoCodes{4} = 'HAPPY';
 emoCodes{5} = 'NEUTRAL';
 emoCodes{6} = 'SAD';
 emoCodes{7} = 'SURPRISE';
+
 nEmos = numel(emoCodes);
 
 % cell array of indeces split by emotion
