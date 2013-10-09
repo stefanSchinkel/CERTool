@@ -1,9 +1,23 @@
 function plotOnFace(nw,flagNodes,flagLabel)
 
 % PLOTONFACE - plot network on face 
-%
-%
 
+% plotOnFace(nw,flagNodes,flagLabel)
+%
+% This function plots the network NW of activations units on a dummy
+% head. The flags for nodes and labels determine if those should
+% be added to the plot. 
+%
+% Input:
+%	nw - a network (30x30,unweighted)
+%	flagNodes - flag to determine if nodes should be plotted
+%	flagLabel - flag to determine if labels should be added to nodes
+%
+% Output:
+%	--
+%
+% See also: 
+%
 
 if nargin < 2
 	flagNodes = false;
