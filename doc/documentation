@@ -1,3 +1,28 @@
+Structure of package:
+
+CERT
+|
++-- attic
+|
++--	private
+|	| face.mat
+|	+-- templates
+|		|-- Anger.txt
+|		|-- Distgust.txt
+|		|-- Fear.txt
+|		|-- Happy.txt
+|		|-- Sad.txt
+|		|-- Surprise.txt
++-- R
+|	|-- batchConvert.R
+|	|-- convert.R
+|	
+|
+|
++-- 
+
+
+
 Rohdaten:,...
 sub | 21*AU | Task | Trial | condition (%d) |condition (%s),...
 ,...
