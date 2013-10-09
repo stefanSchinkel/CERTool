@@ -53,11 +53,10 @@ label = {	'AU1R','AU1L','AU2R','AU2L',....
 			'AU23','AU24','AU25','AU26','AU28',...
 			}';
 
-
-face = imread('face.png');
-imshow(face);
-hold on;
-
+% load the template face, show and hold 
+load ../private/face.mat face
+imshow(face)
+hold
 
 % helper lines
 if testCase == 0
@@ -82,8 +81,10 @@ if testCase > 0
 	if confirmVideo() == 0
 		error('Rendering of video cancelled')
 	end
+	[file,path] = uiputfile('animinit.m','Save file name');
+	fileName = fullfile(pathname,filename);
 	
-	aviobj = avifile('faceNetwork.avi','fps',5,'quality',100); 
+	aviobj = avifile(fileName,'fps',5,'quality',100); 
 	for i=1:25
 
 		% "random" network
@@ -109,14 +110,14 @@ if testCase > 0
 end
 
 function renderVideo =  confirmVideo()
-% Construct a questdlg with three options
+% Construct a questdlg with two options
 choice = questdlg('Are you sure you want to render a sample video?', ...
 	'Render Sample Video ?', ...
 	'Yes','No','No');
 % Handle response
 switch choice
     case 'Yes'
-          renderVideo = 1;
+		renderVideo = 1;
     case 'No'
         renderVideo = 0;
 end
