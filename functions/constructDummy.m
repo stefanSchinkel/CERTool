@@ -1,31 +1,47 @@
-function [x y label ] = testAUs(testCase)
+function [x y label face] = constructDummy(testCase)
 %
-%	TESTAUS - show where the AUs will be plotted
+% CONSTRUCTDUMMY - construct dummy face
 %
-% function testAUs(case)
+% function constructDummy(case)
 %
-% Plot the face wih overlaid markers for AUs.
+% This function show the dummy face used for overlaying 
+% the networks on. The dummy is in private/face.png
+% The X and Y coordiantes as well as the labels are defined
+% with in this function. All data is returned to the caller.
 %
+% All coordinates, labels and the face data is already
+% present in private/face.mat. If you change anything be
+% sure to resave ALL outputs of this function to 
+% private/face.mat as some functions read this file.
+%
+% If CASE is 0, the face with labeled AUs
+% will be plotted. If testCase >= 0, a video w/
+% an overlaid dummy network is shown and stored in 
+% .avi format. The user is prompted for a file name.
+
+
 % Input:
 %	testCase = decide what to plot (def: 0)
-% Output:
-%	
-% If testCase is 0, the face with labeled AUs
-% will be plotted. If testCase > 0,  video w/
-% an overlaid dummy network  is recorded and
-% stored in faceNetwork.avi
 %
+% Output:
+%	x = X-coordinates of AUs
+%	x = Y-coordinates of AUs
+%	label = label of AUs
+%	face = data of the face (1000x750x3 image data)
+%
+% requires: --
+%
+% See also: plotOnFace.m
+%	
 %
 %
 if nargin < 1
 	testCase = 0;
 end
 
-%% TODO:
-% 
-%	CHECK FOR SYMMETRIE
-%
-%
+% disable matlabs resize warning (useful on small screens)
+warning('off','Images:initSize:adjustingMag')
+
 x = [	300 450 165 600 ,... AU1 & AU2
 		350 400 200 550 ,... AU4 & AU5
 		165 585 255 495 ,... AU6 & AU7
@@ -54,9 +70,10 @@ label = {	'AU1R','AU1L','AU2R','AU2L',....
 			}';
 
 % load the template face, show and hold 
-load ../private/face.mat face
+face = imread('private/face.png');
 imshow(face)
-hold
+hold on
+
 
 % helper lines
 if testCase == 0
@@ -72,8 +89,10 @@ for i=1:numel(x);
 	end
 end
 
-%%%%%%%%%%
-%
+
+% re-enable warning
+warning('on','Images:initSize:adjustingMag')
+
 % Make a VIDEO if requested
 
 if testCase > 0
