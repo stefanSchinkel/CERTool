@@ -1,6 +1,6 @@
 function data = splitAUs(data)
 
-% SPLITAUS - clone CERT channels
+% SPLITAUS - clone AUs from CERT
 %
 % function data = splitAUs(data)
 %
@@ -12,12 +12,13 @@ function data = splitAUs(data)
 % Input:
 %	data - 21xN array with activations
 % Output:
-%	data - 25xN array with activations
+%	data - 30xN array with activations
 %
 % See also: importCERT.m
 %
 %
 
 idx = [ reshape(repmat(1:7,2,1),1,14) 8:13 14 14 15 16 16 17:21];
+
 data = data(idx,:);
 
