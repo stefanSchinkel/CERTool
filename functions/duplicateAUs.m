@@ -11,6 +11,7 @@ function data = splitAUs(data)
 %
 % Input:
 %	data - 21xN array with activations
+%
 % Output:
 %	data - 30xN array with activations
 %

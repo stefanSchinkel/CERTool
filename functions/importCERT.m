@@ -14,11 +14,11 @@
 % helps to speed up reading.
 %
 % Input:
-%	file = textfile with relevant data 
+%	file - textfile with relevant data 
 %
 % Output:
-%	data = activation of AUs
-%	meta = codings of trial/task/emotion
+%	data - activation of AUs
+%	meta - codings of trial/task/emotion
 %
 % requires: 
 %	-- 

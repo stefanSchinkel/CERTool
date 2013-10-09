@@ -24,10 +24,10 @@ function [x y label face] = constructDummy(testCase)
 %	testCase = decide what to plot (def: 0)
 %
 % Output:
-%	x = X-coordinates of AUs
-%	x = Y-coordinates of AUs
-%	label = label of AUs
-%	face = data of the face (1000x750x3 image data)
+%	x - X-coordinates of AUs
+%	x - Y-coordinates of AUs
+%	label - label of AUs
+%	face - data of the face (1000x750x3 image data)
 %
 % requires: --
 %

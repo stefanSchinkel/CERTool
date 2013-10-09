@@ -1,8 +1,8 @@
-function x = getEmotion(data,meta,emotion,framesPerTrial)
+function emo = getEmotion(data,meta,emotion,framesPerTrial)
 
-%  GETEMOTION - extract data of one emotion
+% GETEMOTION - extract data of one emotion
 %
-% [data meta] = getEmotion(data,meta,emotion,[framesPerTrial])
+% emo = getEmotion(data,meta,emotion,[framesPerTrial])
 %
 % This function extracts the AU activation for given emotion (INT) an returns  
 % an NxMxP matrix where N is the number of AUs M is the number for frames 
@@ -17,6 +17,9 @@ function x = getEmotion(data,meta,emotion,framesPerTrial)
 %	6 =  'SAD';
 %	7 =  'SURPRISE';
 %
+% The returned array X is an NMP array with 
+% N = AU, M = frame, P = trial
+%
 % Input:
 %	data - from importCERT
 %	meta - from importCERT
@@ -24,7 +27,7 @@ function x = getEmotion(data,meta,emotion,framesPerTrial)
 %	framesPerTrial - no of frames in one trial (def: 125)
 %
 % Output:
-%	x - one emotion in all trials (AU x Frame x trial)
+%	emo - one emotion in all trials (AU x Frame x trial)
 %
 % See also: importCERT.m
 %
@@ -59,11 +62,11 @@ end
 % find proper emotions
 idEmo = find(meta.emotion == emotion);
 
-% the number of trial in % each emotion
-nTrials = numel(idEmo) / framesPerTrial
+% the number of trial in each emotion
+nTrials = numel(idEmo) / framesPerTrial;
 
 % alloc output
-x = [];
+emo = [];
 
 % if no trials, we continue
 if nTrials == 0
@@ -76,13 +79,13 @@ end
 	t =  data(:,idEmo);
 
 	% first trial
-	x = t(:,1:framesPerTrial);
+	emo = t(:,1:framesPerTrial);
 	
 	if nTrials > 1
 		for iTrial = 2:nTrials
 			trialStart = (iTrial-1)*framesPerTrial+1;
 			trialEnd = iTrial*framesPerTrial;
-			x = cat(3,x,t(:,trialStart:trialEnd));
+			emo = cat(3,emo,t(:,trialStart:trialEnd));
 		end
 	end
 
