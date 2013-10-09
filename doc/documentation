@@ -4,7 +4,7 @@ CERT
 |
 |
 +-- R 							% R functions
-|	|-- batchConvert.R 			% wrapper script for data annotation
+|	|-- batchConvert.R 			% sample wrapper for batch processing 
 |	|-- convert.R				% function for annote CERT output w/ fixed coding
 |
 +-- attic						% the attic for templates, scripts etc

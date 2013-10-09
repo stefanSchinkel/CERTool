@@ -13,7 +13,7 @@ srcFiles <- list.files(pattern="AU Data 210*.")
 for (s in srcFiles){ 
 
   if (grepl(pattern = '21030',s)) {
-      cat('SKIPPING 22030')  
+      cat('SKIPPING 21030')  
       next;
     }
     nChars  <- nchar(s)
@@ -32,7 +32,7 @@ srcFiles <- list.files(pattern="AU Data 220*.")
 for (s in srcFiles){ 
   
   if (grepl(pattern = '22014',s)) {
-    cat('SKIPPING 22030')  
+    cat('SKIPPING 22014')  
     next;
   }
   nChars  <- nchar(s)
