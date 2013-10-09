@@ -3,18 +3,25 @@
 % function [data meta] = importCERT(file)
 %
 % Read the activation of facial action units (AU) as derived
-% from the CERT coding software. In those files There
-% from Brain Vision Marker File and return it to the caller.
-% Needed to provide a mean of epochising continous EEG data.
+% from the CERT coding software and preprocessed and annoted 
+% using the R-scripts in R/. The DATA returned is an 21xN matrix.
+% The number of AUs is defined by using the R script. N is the
+% number of samples/video frames. META is a struct with the fields
+% "task","trial","emotion". Those are annoted using R. Each field
+% contains an 1xN array of ints. 
+%
+% On UNIX plattforms the memory is pre-allocated which
+% helps to speed up reading.
 %
 % Input:
 %	file = textfile with relevant data 
 %
 % Output:
 %	data = activation of AUs
-%	meta = codings of trial/task/etc
+%	meta = codings of trial/task/emotion
 %
 % requires: 
+%	-- 
 %
 % see also: 
 %
@@ -38,12 +45,6 @@
 function [data meta] =importCERT(fileName)
 
 flagDebug = false;
-
-if nargin < 1
-	fileName = 'data/dat_all_21001.txt';
-	fprintf('WARNING: Reading sample data\n');
-end
-
 
 % open file
 fid = fopen(fileName);
