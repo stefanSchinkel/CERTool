@@ -103,7 +103,16 @@ textCopy= uicontrol('Parent',hFig,...
 % we simply render the NW and that is it 
 if ~any(mod(nw,1))
 
-	plotLinks(hFig,data.nw);
+	% if the slider is present, people probably want
+	% to play withit 
+	data.nw = nw;
+	data.x = template.x;	% the node coordinates
+	data.y = template.y;	%		-""-
+
+	% store struct
+	set(hFig,'Userdata',data);
+	
+	plotLinks(hFig,nw);
 	return
 
 else	
@@ -154,7 +163,7 @@ else
 	% store struct
 	set(hFig,'Userdata',data);
 
-	% and plot the NW for the initial threshold
+	% plot the NW for the initial threshold
 	X = corr2nw(nw,get(hSlider,'value'));
 	plotLinks(hFig,X);
 
