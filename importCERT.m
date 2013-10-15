@@ -74,7 +74,7 @@ fprintf('Reading data ')
 formatString = prepareFormatString(); 
 
 % and a line counter
-iLine = 1;
+iLine = 0;
 
 % loop over data
 while 1 
@@ -89,6 +89,9 @@ while 1
 
 	% scan line
 	x = textscan(line,formatString);
+	% increment counter
+	iLine = iLine + 1;
+
 	try
 		% assign values
 		data(:,iLine) 	= cell2mat(x(2:22));
@@ -106,9 +109,6 @@ while 1
 		meta.trial(iLine) 	= cell2mat(x(24));	
 		meta.emotion(iLine) = cell2mat(x(25));
 	end
-	
-	% increment counter
-	iLine = iLine + 1;
 
     % some progress
     if mod(iLine,500) == 0 
