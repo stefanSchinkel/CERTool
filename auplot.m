@@ -2,7 +2,7 @@ function auplot(varargin)
 
 % AUPLOT - SCROLLPLOT OF ACTION UNITS
 %
-% auplot - function (AU,timeScale,labels)
+% auplot - function (AU[,timeScale,labels])
 %
 % Show a scrollplot of the activation of the facial
 % action units analog to an EEG scroll plot.
@@ -15,11 +15,13 @@ function auplot(varargin)
 % If the AU data is a set of trials, the figure 
 % allows the change from one trial to the next. 
 %
-
+%
 % Input:
+%
 %	AU = AU data (continous or trialwise)
 %
-% Optional Inputs:
+% Parameters:
+%
 %	timeScale = timeScale against which to plot 
 %	labels = AU labels
 %
@@ -78,7 +80,6 @@ set(hAxes,'Ticklength',[0 0])
 set(hAxes,'YTick',[2:2: 2*nChan])
 set(hAxes,'YTickl',labels)
 
-
 %store in data in GUI
 set(hFig,'UserData',data);
 
@@ -92,7 +93,6 @@ set(buttonShowNW,'Callback',{@openNW});
 
 % and show the figure
 set(hFig,'visible','on');
-
 	
 end % main function
 
