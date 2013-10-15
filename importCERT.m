@@ -49,7 +49,7 @@ flagDebug = false;
 % open file
 fid = fopen(fileName);
 if fid == -1
-	error('FACE:importCERT','Couldn''t read data file')
+	error('CERTool:importCERT','Couldn''t read data file')
 end
 
 % try to get the number of lines 
