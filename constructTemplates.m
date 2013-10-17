@@ -9,16 +9,25 @@ function templates = constructEmoTemplates()
 % basic emotions. The templates are provided as .csv files
 % in private/templates.
 %
-%
 % Input:
 %	-- 
-%
 % Output:
 %	templates - a struct with one field for each emotions
 %
+% See also: plotOnFace
 %
-%
-% See also: plotOnFace.,
+% >> In case sth. is messed up run:
+% >> cd CERTool
+% >> template = constructTemplates;
+% >> anger = template.anger
+% >> disgust     = template.disgust;
+% >> fear       = template. fear;
+% >> happy      = template.happy;
+% >> neutral 	= zeros(30,30);
+% >> sad         = template.sad;
+% >> surprise    = template.surprise;
+% >> save private/templates.mat disgust fear happy neutral sad surprise
+
 
 % Copyright (C) 2013- Stefan Schinkel, HU Berlin
 % http://people.physik.hu-berlin.de/~schinkel/
