@@ -71,6 +71,24 @@ template = load('private/face.mat');
 hFig = gcf();
 clf(hFig);
 
+% clear the menu and add own
+set(hFig,'Menubar','none');
+overlayMenu = uimenu(hFig,'Label','Overlay Emotion');
+uimenu(overlayMenu,'Label','Neutral','Callback',{@overlayEmotion,5},... 
+		'Accelerator','0');
+uimenu(overlayMenu,'Label','Anger','Callback',{@overlayEmotion,1},... 
+		'Accelerator','1');
+uimenu(overlayMenu,'Label','Disgust','Callback',{@overlayEmotion,2},... 
+		'Accelerator','2');
+uimenu(overlayMenu,'Label','Fear','Callback',{@overlayEmotion,3},... 
+		'Accelerator','3');
+uimenu(overlayMenu,'Label','Happy','Callback',{@overlayEmotion,4}'',... 
+		'Accelerator','4');
+uimenu(overlayMenu,'Label','Sadness','Callback',{@overlayEmotion,6}'',... 
+		'Accelerator','5');
+uimenu(overlayMenu,'Label','Surprise','Callback',{@overlayEmotion,7}'',... 
+		'Accelerator','6');
+
 % render face and hold for overlaying
 % we store the handle to access its position later
 hIm = imshow(template.face);
@@ -257,3 +275,32 @@ function nw = corr2nw(r,thresh)
 	nw(idxLink) =1;
 
 end % corr2nw
+
+
+function overlayEmotion(source,eventdata,iEmo)
+	
+	% aquire figure handle
+	hFig = get(get(source,'Parent'),'Parent');
+	
+	% and UserData
+	data = get(hFig,'UserData');
+
+	% clear possible existing  overlays
+	if isfield(data,'hOverlay')
+		delete(data.hOverlay);
+	end
+
+	% load templates
+	x = struct2cell(load('templates.mat'));
+
+
+	% use gplot to get coordinates
+	[gx gy] = gplot(x{iEmo},[data.x data.y]);
+
+	%plot overlaid emo and storeUSERDATA
+	data.hOverlay = plot(gx,gy,'--k','LineWidth',.5,'Color','r');
+	
+	% and update in USERDATA
+	set(hFig,'UserData',data);
+
+end % overlayEmotion
