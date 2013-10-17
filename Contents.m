@@ -16,6 +16,7 @@
 % |	|-- layoutAUplot.m 		% layout of the auplotGUI.
 % |	|-- face.mat			% templates of coordinates
 % |	|-- face.png 			% image source for dummy head
+% |	|-- templates.mat		% templates for basic emotions
 % |	|
 % |	+-- templates			% templates for emotions in ASCII files
 % |		|-- Anger.txt
