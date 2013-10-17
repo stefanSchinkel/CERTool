@@ -26,7 +26,7 @@ function templates = constructEmoTemplates()
 % >> neutral 	= zeros(30,30);
 % >> sad         = template.sad;
 % >> surprise    = template.surprise;
-% >> save private/templates.mat disgust fear happy neutral sad surprise
+% >> save private/templates.mat anger disgust fear happy neutral sad surprise
 
 
 % Copyright (C) 2013- Stefan Schinkel, HU Berlin
