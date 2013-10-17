@@ -36,10 +36,12 @@ function templates = constructEmoTemplates()
 % You should have received a copy of the GNU General Public License
 % along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-
+% ID of those AUs we need to double
 idx = [ reshape(repmat(1:7,2,1),1,14) 8:13 14 14 15 16 16 17:21];
 
-files = findFiles('private/templates/','*.txt');
+p = mfilename('fullpath');% get the current path for searching
+tbPath = fileparts(p);
+files = findFiles(fullfile(tbPath,'private/templates/'),'*.txt');
 
 for iFile = 1:numel(files)	
 	x = importdata(files{iFile});

@@ -27,10 +27,15 @@
 % |
 % | -- Contents.m 			% General Help file
 % |
+% | 	** PROTOTYPE AREA **
+% |	-- CERTReader.m 		% Generic importer for CERT data 
+% | 	** PROTOTYPE AREA **
+% | 
 % | -- auplot.m				% scroll plot of AU activations
 % | -- constructDummy.m			% dummy head and coordinates for plotting
 % | -- constructTemplates.		% read theoretical networks from private/templates
 % | -- duplicateAUs.m 			% clone the AUs recorded once but plotted twice
+% | -- findPeaks.m			% extract peaks in activation of AUs
 % | -- getTask.m 			% extract one task from data
 % | -- getEmotion.m			% extract one emotion from data
 % | -- getAllEmotions.m			% extract ALL emotions from data
