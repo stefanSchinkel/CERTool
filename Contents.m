@@ -10,6 +10,7 @@
 % +-- doc
 % |	|-- documentation		% General Documentation
 % |	|-- CERTspecs.pdf		% PDF describing the CERT/AFECT System
+% |	|-- sampleCert.txt		% truncated sample CERT output file to check CERTReader
 % |
 % +--	private
 % |	|
@@ -26,12 +27,8 @@
 % |		|-- Sad.txt
 % |		|-- Surprise.txt
 % |
-% | -- Contents.m 			% General Help file
+% | -- Contents.m 			% Contents file
 % |
-% | 	** PROTOTYPE AREA **
-% |	-- CERTReader.m 		% Generic importer for CERT data 
-% | 	** PROTOTYPE AREA **
-% | 
 % | -- auplot.m				% scroll plot of AU activations
 % | -- constructDummy.m			% dummy head and coordinates for plotting
 % | -- constructTemplates.		% read theoretical networks from private/templates
@@ -42,4 +39,7 @@
 % | -- getAllEmotions.m			% extract ALL emotions from data
 % | -- importCERT.m			% import annoted CERT data ( output of R/convert.R)
 % | -- plotOnFace.m			% plot NW on a face
-
+% |
+% | ** PROTOTYPE AREA **
+% | -- CERTReader.m 		% Generic importer for CERT data 
+% | ** PROTOTYPE AREA **
