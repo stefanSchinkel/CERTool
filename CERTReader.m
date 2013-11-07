@@ -1,65 +1,213 @@
-function readRawCERT(filename)
+function data = CERTReader(fileName,AUs)
+% CERTREADER - read CERT export files
+%
+% function data = CERTReader(file[,AUs])
+%
+% CERTReader reads the activation of FACS relevant facial action units (AU) 
+% encoded and exported using the CERT software package. 
+%
+% DATA = CERTREADER(FILE) reads the default AUs used by FACS from the
+% data file FILE into an 21xN matrix DATA that holds the activation values 
+% of each AU. The number of AUs is defined by the FACS system. N is the
+% number of samples/video frames in the exported CERT file.
+%
+% DATA = CERTREADER(FILE,AUS) reads the  AUs specified in the cell arry
+% AUS. 
+%
+% On UNIX-like platforms the memory is pre-allocated which
+% helps to speed up reading of long files.
+%
+% Input:
+%	file -  CERT export file 
+%	AU -  AUs of interest (cell array of strings)
+%
+% Output:
+%	data - activation of AUs
+%
+% requires: 
+%	-- 
+%
+% see also: CERTool
+%
 
-filename = 'doc/sampleCert.txt';
+% Copyright (C) 2013- Stefan Schinkel, HU Berlin
+% http://people.physik.hu-berlin.de/~schinkel/
+%
+% This program is free software; you can redistribute it and/or modify
+% it under the terms of the GNU General Public License as published by
+% the Free Software Foundation; either version 3 of the License, or
+% (at your option) any later version.
+%
+% This program is distributed in the hope that it will be useful,
+% but WITHOUT ANY WARRANTY; without even the implied warranty of
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+% GNU General Public License for more details.
+%
+% You should have received a copy of the GNU General Public License
+% along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-fid = fopen(filename);
+% debug settings
+flagDebug = false;
 
-%fast forward to actual headers
-fgetl(fid); %empty line
-fgetl(fid); %Directory: /Users/pinkpant/Documents
+% I/O check
+error(nargchk(1, 2, nargin));
 
-str = fgetl(fid); % the acual names
+if nargin < 2
+	AUs = defaultAUs();
+end
+
+% open file for read access, the file handle 
+% will be passed to subfunctions
+fid = fopen(fileName);
+if -1 == fid
+	error('CERTool:CERTReader:fileNotFound','Couldn''t open CERT export file');
+end
+
+% extract the field  names form the file
+fieldNames = getFieldNames(fid);
+
+% find location of FACS relevant AUs
+idx = matchFields(AUs,fieldNames);
+
+if flagDebug
+	% for debugging, print a summary
+	fprintf('ID\tstring \t index\n')
+	for iAU = 1:numel(AUs)
+		fprintf('%d\t%s\t\t%s\n',idx(iAU),AUs{iAU},fieldNames{idx(iAU)});
+	end
+end
+
+
+% try to determine the no of lines in the file
+totalLines = getTotalLines(fileName);
+
+% make format string 
+formatString = prepareFormatString(numel(fieldNames));
+
+% finally read the data
+data = readCert(fid,totalLines,formatString,idx);
 
 % close file
 fclose(fid);
 
-% the number of tabs
-% \t is 9 in ASCII
-nTabs = numel( find( double(str) == 9) );
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%		HELPER FUNCTIONS			%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+function x = defaultAUs()
 
-% scan into cell array
-out = textscan(str,'%s',nTabs+1,'Delimiter','\t');
+	% default FACS AUs
 
-auStrings = '';
-for iAu = 1:numel(out{1})
- 	auStrings = [auStrings sprintf('%s|',out{1}{iAu})];
-end
+	% these are the 21 AUs considered in FACS
+	% and the strings we look for (already ordered
+	% as needed later on)
+	x =	{	
+		'(AU 1)', '(AU 2)', '(AU 4)', '(AU 5)', '(AU 6)','(AU 7)', '(AU 9)', ...
+		'AU 10 R', 'AU 10 L', 'AU 12 R', 'AU 12 L','AU 14 R', 'AU 14 L',...
+		'(AU 15)', '(AU 17)', '(AU 20)','(AU 23)', '(AU 24)',  '(AU 25)',  '(AU 26)',  '(AU 28)',... 
+		};
 
-%remove trailing |
-auStrings = auStrings(1:end-1);
+function fieldNames = getFieldNames(fid)
+
+	% return the fields CERT
+
+	% rewind file just to be sure
+ 	fseek(fid,0,-1);
+
+ 	%fast forward to actual headers
+	fgetl(fid); %empty line
+	fgetl(fid); %Directory: /Users/pinkpant/Documents
+
+	% the line containing the the actual field names
+	str = fgetl(fid); 
+
+	% fields are tab delimited and the number varies
+	% \t is 9 in ASCII
+	nTabs = numel( find( double(str) == 9) );
+
+	% scan into fieldnames into cell array
+	out = textscan(str,'%s',nTabs+1,'Delimiter','\t');
+	fieldNames = out{1};
+
+function idx = matchFields(AUs,fieldNames)
+
+	% find and return the index of AUs of interest 
+	% to their actual location in a given CERTfile
+
+	% match the AUs to the fields found in the CERT-File 
+	for iAu = 1:numel(AUs)
+		idx(iAu) =  strmatch(AUs{iAu},fieldNames);
+	end
+
+function format = prepareFormatString(nFields)
 	
-% auStrings = [ 'File|',...
-% 		'Mouth Imp X|Mouth Imp Y|Left Eye Imp X| Left Eye Imp Y|',...
-% 		'Right Eye Imp X|Right Eye Imp Y|Mouth Left Corner Imp X|',...
-% 		'Mouth Left Corner Imp Y|Right Eye Nasal Imp X|Right Eye Nasal Imp Y|',...
-% 		'Mouth Right Corner Imp X|Mouth Right Corner Imp Y|'...
-% 		'Right Eye Temporal Imp X|Right Eye Temporal Imp Y|'...
-% 		'Left Eye Temporal Imp X|Left Eye Temporal Imp Y|,'...
-% 		'Left Eye Nasal Imp X|Left Eye Nasal Imp Y|',...
-% 		'Nose Imp X|Nose Imp Y|Mouth Left Corner X|Mouth Left Corner Y|',...
-% 		'Mouth Right Corner X|Mouth Right Corner Y|(AU 1) Inner Brow Raise|,...
-%		'(AU 2) Outer Brow Raise|(AU 4) Brow Lower|(AU 5) Eye Widen|(AU 9) Nose Wrinkle|(AU 10) Lip Raise|(AU 12) Lip Corner Pull|(AU 14) Dimpler|(AU 15) Lip Corner Depressor|(AU 17) Chin Raise|(AU 20) Lip stretch|(AU 6) Cheek Raise|(AU 7) Lids Tight|(AU 18) Lip Pucker|(AU 23) Lip Tightener|(AU 24) Lip Presser|(AU 25) Lips Part|(AU 26) Jaw Drop|(AU 28) Lips Suck|(AU 45) Blink/Eye Closure|Fear Brow (1+2+4)|Distress Brow (1, 1+4)|AU 10 Left|AU 12 Left|AU 14 Left|AU 10 Right|AU 12 Right|AU 14 Right|Gender|Glasses|Yaw|Pitch|Roll|Smile Detector|Anger (v3)|Contempt (v3)|Disgust (v3)|Fear (v3)|Joy (v3)|Sad (v3)|Surprise (v3)|Neutral (v3)'];
-screenSize = get(0,'Screensize');
+	% one %s field and nFields-1 %f fields
+	format = ['%s',repmat(' %f',1,nFields-1)];
 
-figHandle = figure('Name','CERT READER',... 
-		'Position',[50,screenSize(4)-650,350,400],... 
-		'Color',[.801 .75 .688],... 
-		'NumberTitle','off',...
-		'Tag','mainFigure',... 
-		'WindowStyle','modal',...
-		'Visible','on',...
-		'Menubar','none');
+function nLines = getTotalLines(fileName)
 
-uicontrol('Style', 'listbox',...
-	'Parent',figHandle,...
-	'String', auStrings,...
-	'Position', [20 20 300 350],...
-	'min',1,'max',numel(auStrings),...
-	'Callback', @setindices); 
+	% count the number of lines in a text file
+	% using wc. If system is not unix system, 
+	% return -1 
 
-%callbacks
-function val = setindices(hObj,event) %
-    % Called when user activates popup menu 
-    val = get(hObj,'Value')
+	if ~isunix(); 
+		nLines = -1;
+	else
+		[stat result] = unix(sprintf('wc -l %s',fileName));
+		nLines = sscanf(result,'%d *%s');
+		% decrement by header (3 lines)
+		nLines = nLines-3;
+	end
+
+function data = readCert(fid,totalLines,formatString,idx)
+
+	if totalLines > 0
+		%fprintf('Pre-allocating memory\n');
+		data =  zeros(21,totalLines);
+	end
+
+	% rewind the file and skip the
+	% header data (3 lines)
+	fseek(fid,0,-1);
+	for i=1:3
+		fgetl(fid); 
+	end
+
+	fprintf('Reading data ')
+	
+	% and a line counter
+	iLine = 0;
+	
+	% loop over data
+	while 1 
+
+		% read in a line
+		line = fgetl(fid);
+
+		% break on empty
+		if ~ischar(line)
+			break
+		end	 
+
+		% scan line
+		x = textscan(line,formatString);
+
+		% increment counter
+		iLine = iLine + 1;
+
+		try
+			% assign values
+			data(:,iLine) 	= cell2mat(x(idx));
+		catch 
+			data(:,iLine) 	= NaN;
+		end
+
+	    % some progress
+	    if mod(iLine,500) == 0,fprintf('=');end
+
+	end
+
+	% close and summary
+	fprintf('> Done \n')
 
 
+	
