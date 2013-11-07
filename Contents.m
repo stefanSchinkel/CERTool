@@ -29,6 +29,8 @@
 % |
 % | -- Contents.m 			% Contents file
 % |
+% | -- CERTReader.m 		% Generic importer for CERT data 
+% | 
 % | -- auplot.m				% scroll plot of AU activations
 % | -- constructDummy.m			% dummy head and coordinates for plotting
 % | -- constructTemplates.		% read theoretical networks from private/templates
@@ -41,5 +43,4 @@
 % | -- plotOnFace.m			% plot NW on a face
 % |
 % | ** PROTOTYPE AREA **
-% | -- CERTReader.m 		% Generic importer for CERT data 
 % | ** PROTOTYPE AREA **
